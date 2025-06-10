@@ -16,6 +16,7 @@
 def call(Map config = [:]) {
     def pomFile = config.pomFile ?: 'pom.xml'
     def mavenToolName = config.mavenToolName ?: 'M3'
+    def settingsfile = config.settingsfile ?: 'settings.xml'
 
     // Optional: Use the Maven tool configured in Jenkins if not globally available
     // tool "${mavenToolName}"
@@ -24,7 +25,7 @@ def call(Map config = [:]) {
     // The 'mvn deploy' goal reads the <distributionManagement> section from your pom.xml
     // and uses the server credentials configured in Maven's settings.xml (via Jenkins credentials)
     // to authenticate with Nexus.
-    sh "mvn deploy -f ${pomFile}"
+    sh "mvn deploy -f ${pomFile} -s ${settingsfile}"
 
     echo "Maven artifacts deployed to Nexus."
 }
